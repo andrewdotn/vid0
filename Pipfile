@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+# Only used for deploying with docker-compose
+uwsgi = "*"
+pillow = "*"
+django-crispy-forms = "*"
+crispy-bootstrap4 = "*"
+
+[dev-packages]
+black = "*"
+pytest = "*"
+django-debug-toolbar = "*"
+pytest-django = "*"
+djhtml = "*"
+
+[requires]
+python_version = "3.10"

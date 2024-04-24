@@ -1,0 +1,16 @@
+{% extends "vid0/base.html" %}
+
+{% load frontend_extras %}
+
+{% block content %}
+  <h1>Videos</h1>
+
+  <ul>
+    {% for o in object_list %}
+      <li>{{ o.timestamp }}
+        <a href="{% url "vid0:watch" o.episode.series.slug o.episode.slug %}">{{ o.episode.name }}</a>
+        {{ o.text }}</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

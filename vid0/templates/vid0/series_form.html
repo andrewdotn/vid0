@@ -1,0 +1,17 @@
+{% extends "vid0/base.html" %}
+
+{% load crispy_forms_tags %}
+{% load frontend_extras %}
+
+{% block content %}
+      <h1>{% if object %}Update{% else %}Create{% endif %} series</h1>
+
+    <form method=POST>
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type=submit
+           value={% if object %}Update{% else %}Create{% endif %}
+            class="btn btn-primary">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "vid0/base.html" %}
+
+{% load frontend_extras %}
+
+{% block content %}
+  <h1>Series</h1>
+
+  {% for series in object_list %}
+    <h2>{{ series.name }}</h2>
+    {% for o in series.episode_set.all %}
+    <li><a href="{% url "vid0:watch" o.series.slug o.slug %}">{{ o.name }}</a></li>
+    {% if o.note_set %}
+      <ul>
+      {% for n in o.note_set.all %}
+        <li>{{ n.video_position }} {{ n.text }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    {% endfor %}
+    <a href="{% url "vid0:episodes_add" %}?series={{ series.slug|urlencode }}">Add “{{ series.name }}” videos</a>
+  {% endfor %}
+
+  <hr>
+  <div>
+  <a href="{% url "vid0:series_create" %}">Add a series</a>
+  </div>
+
+{% endblock %}

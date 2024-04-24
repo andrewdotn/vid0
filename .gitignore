@@ -1,0 +1,10 @@
+
+# django-boilerplate entries
+.secrets.json
+*.sqlite3
+# don’t check in files collected/built from elsewhere
+/frontend/static
+/public/static
+/media/*
+!/media/README.md
+/web-tls.pem

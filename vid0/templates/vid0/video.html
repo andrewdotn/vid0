@@ -1,0 +1,21 @@
+{% extends "vid0/base.html" %}
+
+{% load frontend_extras %}
+
+{% block content %}
+<h1>{{ episode.name }}</h1>
+
+<div id="video1" data-seriesslug="{{ episode.series.slug }}" data-episodeslug="{{ episode.slug }}">video player</div>
+
+  {% if episode.note_set %}
+    <ul>
+  {% for n in episode.note_set.all %}
+    <li>{{ n.video_position }} {{ n.timestamp }} {{ n.text }}
+    <img class="image-in-note-list" src="{{ n.image_data_url }}">
+    </li>
+  {% endfor %}
+    </ul>
+  {% endif %}
+
+<script async type="module" src="{% frontend_url %}/video-page.tsx"></script>
+{% endblock %}

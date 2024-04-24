@@ -1,0 +1,26 @@
+{% load frontend_extras %}<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="referrer" content="same-origin">
+  {% frontend %}
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+  <nav class="navbar bg-light">
+    <a class="navbar-brand nav-link h1" href="{% url 'vid0:home' %}">Vid0</a>
+    <a class="navbar-brand nav-link h1 flex-fill" href="{% url 'vid0:note_list' %}">Notes</a>
+    {% block nav_extra %}{% endblock %}
+    {% if user.is_staff %}
+      <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
+    {% endif %}
+  </nav>
+  <div class="container pb-3">
+    {% block content %}
+    {% endblock %}
+  </div>
+{% endblock %}
+</body>
+</html>

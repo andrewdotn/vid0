@@ -1,0 +1,21 @@
+{% extends "vid0/base.html" %}
+
+{% load crispy_forms_tags %}
+{% load frontend_extras %}
+
+{% block content %}
+  <h1>Add “{{ series.name }}” episodes</h1>
+
+  <p>
+  Enter the absolute paths to the video files, one per line.
+  </p>
+
+  <form method=POST>
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type=submit
+           value=Add
+           class="btn btn-primary">
+  </form>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  website:
+    build:
+      context: .
+      #args:
+      #  DATA_GID: …
+    ports:
+      - "127.0.0.1:8001:8001"
+    restart: unless-stopped
+    depends_on:
+      migrate:
+          condition: service_completed_successfully
+    volumes:
+      - type: bind
+        source: ./db
+        target: /app/db
+      - type: bind
+        source: ./media
+        target: /app/media
+
+  migrate:
+    build:
+      context: .
+      #args:
+      #  DATA_GID: …
+    command: python ./docker/migrate.py
+    depends_on:
+      set-dir-permissions:
+          condition: service_completed_successfully
+    volumes:
+      - type: bind
+        source: ./db
+        target: /app/db
+      - type: bind
+        source: ./media
+        target: /app/media
+
+  set-dir-permissions:
+    image: alpine
+    environment:
+      DATA_GID: 65942
+    command:
+      - sh
+      - -c
+      - |
+        for D in db media; do \
+          chgrp "$${DATA_GID}" /app/"$${D}" && chmod g+srwx /app/"$${D}"; \
+        done
+    volumes:
+      - type: bind
+        source: ./db
+        target: /app/db
+      - type: bind
+        source: ./media
+        target: /app/media
+
+  nginx:
+    image: nginx
+    profiles:
+      - nginx
+    ports:
+      - "127.0.0.1:8002:8002"
+      - "127.0.0.1:8003:8003"
+    depends_on:
+      - website
+    volumes:
+      - type: bind
+        source: ./website.nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+      - type: bind
+        source: ./web-tls.pem
+        target: /etc/web-tls.pem

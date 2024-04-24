@@ -1,0 +1,71 @@
+@import "bootstrap";
+
+// Bootstrap doesn’t do this by default :s
+// https://github.com/twbs/bootstrap/issues/2144
+a:visited {
+  color: purple;
+}
+
+.image-in-note-list {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.video-player {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.video-player video {
+  max-width: 100%;
+}
+
+.video-player video.cropped43 {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  max-height: 100%;
+}
+
+.video-player:fullscreen video.cropped43 {
+  /* workaround for bug when upgrading safari to 17.2 */
+  border-bottom: 1px solid black;
+}
+
+.note-modal-overlay {
+  background-color: gray;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 50%;
+}
+
+.note-modal {
+  background: white;
+  position: absolute;;
+  display: flex;
+  flex-direction: column;
+  left: 10%;
+  width: 80%;
+  top: 12.5%;
+  height: 75%;
+}
+
+.note-modal-contents-wrapper {
+  background-color: #ddd;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.note-modal-image-preview {
+  max-width: 300px;
+  align-self: flex-start;
+}
+
+.note-modal-textarea {
+  flex-grow: 1;
+}
+
